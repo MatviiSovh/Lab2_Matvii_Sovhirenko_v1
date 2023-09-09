@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Lab2_Matvii_Sovhirenko_v1</string>
+    <string name="chars_selection">Count chars</string>
+    <string name="words_selection">Count words</string>
+
+    <string-array name="count_options">
+        <item>Count words</item>
+        <item>Count chars</item>
+    </string-array>
 </resources>
