@@ -15,9 +15,9 @@ import utils.TextCounter;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Spinner spOptions;
-    private EditText edInput;
-    private TextView tvResult;
+    Spinner spOptions;
+    EditText edInput;
+    TextView tvResult;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,18 +36,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickCount(View view) {
-        if(TextUtils.isEmpty(this.edInput.getText().toString())) {
-            Toast.makeText(this, "The input line is empty!", Toast.LENGTH_SHORT).show();
-            this.tvResult.setText("Result: The input line is empty!");
+        String inputText = edInput.getText().toString().trim();
+        String selectedOption = this.spOptions.getSelectedItem().toString();
+        if(selectedOption.equals(getResources().getString(R.string.chars_selection))){
+            this.tvResult.setText(countCharacters(inputText));
+        }
+        if(selectedOption.equals(getResources().getString(R.string.words_selection))){
+            this.tvResult.setText(countWords(inputText));
+        }
+    }
+
+    public static String countCharacters(String inputText) {
+        if (TextUtils.isEmpty(inputText.trim())){
+            return "Result: The input line is empty!";
+        }
+        else{
+            return "The number of chars is: " + inputText.length();
+        }
+    }
+
+    public static String countWords(String inputText) {
+
+        if (TextUtils.isEmpty(inputText.trim())){
+            return "Result: The input line is empty!";
         }
         else {
-            String selectedOption = this.spOptions.getSelectedItem().toString();
-            if(selectedOption.equals(getResources().getString(R.string.chars_selection))){
-                this.tvResult.setText("The number of chars is: " + TextCounter.getCharsCount(this.edInput.getText().toString()));
-            }
-            if(selectedOption.equals(getResources().getString(R.string.words_selection))){
-                this.tvResult.setText("The number of words is: " + TextCounter.getWordsCount(this.edInput.getText().toString()));
-            }
+            String[] words = inputText.split("\\s+");
+            return "The number of words is: "+ words.length;
         }
     }
 }
